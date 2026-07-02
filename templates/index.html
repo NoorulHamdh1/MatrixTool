@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matrix Operations Tool</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>Matrix Operations Tool</h1>
+
+        <p>
+            Perform common matrix operations using NumPy.
+        </p>
+
+    </header>
+
+    <form method="POST">
+
+        <div class="matrices">
+
+            <div class="card">
+
+                <h2>Matrix A</h2>
+
+                <textarea
+                    name="matrix_a"
+                    placeholder="Example:
+1 2
+3 4"
+                    required>{{ matrix_a }}</textarea>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Matrix B</h2>
+
+                <textarea
+                    name="matrix_b"
+                    placeholder="Example:
+5 6
+7 8">{{ matrix_b }}</textarea>
+
+            </div>
+
+        </div>
+
+        <div class="controls">
+
+            <select name="operation">
+
+                <option value="add">Addition</option>
+
+                <option value="subtract">Subtraction</option>
+
+                <option value="multiply">Multiplication</option>
+
+                <option value="transpose_a">Transpose Matrix A</option>
+
+                <option value="transpose_b">Transpose Matrix B</option>
+
+                <option value="determinant_a">Determinant of Matrix A</option>
+
+                <option value="determinant_b">Determinant of Matrix B</option>
+
+            </select>
+
+            <button type="submit">
+
+                Calculate
+
+            </button>
+
+        </div>
+
+    </form>
+
+    {% if result is not none %}
+
+    <div class="result card">
+
+        <h2>Result</h2>
+
+        {% if result is sequence and result is not string %}
+
+        <table class="result-table">
+
+            {% for row in result %}
+
+            <tr>
+
+                {% for value in row %}
+
+                <td>
+
+                    {{ "%.2f"|format(value) }}
+
+                </td>
+
+                {% endfor %}
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <div class="scalar-result">
+
+            {{ result }}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+    {% if error %}
+
+    <div class="error">
+
+        {{ error }}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
